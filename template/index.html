@@ -1,0 +1,53 @@
+
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pesan Tiket Pesawat</title>
+    <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+    <main class="container">
+        <h1>✈️ Tiket Pesawat</h1>
+        <p>Simulasi pemesanan tiket penerbangan.</p>
+
+        <form method="POST">
+            <label for="nama">Nama penumpang</label>
+            <input
+                id="nama"
+                name="nama"
+                type="text"
+                maxlength="100"
+                required
+            >
+
+            <label for="flight_id">Pilih penerbangan</label>
+            <select id="flight_id" name="flight_id" required>
+                {% for f in flights %}
+                <option value="{{ f[0] }}">
+                    {{ f[1] }} → {{ f[2] }} — Rp{{ "{:,}".format(f[3]) }}
+                </option>
+                {% endfor %}
+            </select>
+
+            <label for="jumlah">Jumlah tiket (1–6)</label>
+            <input
+                id="jumlah"
+                name="jumlah"
+                type="number"
+                min="1"
+                max="6"
+                value="1"
+                required
+            >
+
+            <button type="submit">Hitung dan Pesan</button>
+        </form>
+
+        {% if pesan %}
+        <div class="pesan">{{ pesan }}</div>
+        {% endif %}
+    </main>
+</body>
+</html>
